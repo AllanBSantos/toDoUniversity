@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from backports import configparser
 import os
 import json
-
+#test
 def accessPortal():
     global browser
     link = "https://www.psxportalacademico.com.br/facp/index.php"
