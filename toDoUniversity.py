@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.firefox.options import Options
@@ -54,15 +56,47 @@ def accessTasks():
     taskMenu.click()
 
 def loadAllTasks():
-    parentElement = browser.find_element_by_class_name("lovelyrow1")
-    elementList = parentElement.find_elements_by_tag_name("td")
-    taskModel = '{ "description":" ", "professor":"", "className":"", "status":"","deadline":""}'
-    task = []#json.loads(taskModel)
-    for x in range(len(elementList)): 
-        #task[x] = json.loads(taskModel)
-        #task[x]["description"] = elementList[x].text
-        print(elementList[x].text)
-        #até aqui estou pegando os dados de 1 unica task tenho que organizar ela agora e replicar para as demais. 
+    parentElement = browser.find_elements_by_class_name("lovelyrow1")
+    print(len(parentElement))
+    elementList = []
+    taskModel = '{ "id":"","description":" ", "professor":"", "className":"","type":"", "status":"","deadline":""}'
+    taskJsonList =[]
+    for i in range(len(parentElement)):
+        elementList = parentElement[i].find_elements_by_tag_name("td")
+        taskItem = json.loads(taskModel)
+        taskItem["id"] = i
+        taskItem["description"] = elementList[1].text
+        taskItem["professor"] = elementList[3].text
+        taskItem["className"] = elementList[5].text
+        taskItem["type"] = elementList[6].text
+        taskItem["status"] = elementList[9].text
+        taskItem["deadline"] = elementList[10].text
+        #print("-------------------------------------------------")
+        #print(taskItem)
+        #print("-------------------------------------------------")
+        taskJsonList.append(taskItem)
+    print(taskJsonList)
+    print("------------------------------------------------------------------")
+    print(taskJsonList[0])
+    print("------------------------------------------------------------------")
+    print(taskJsonList[1])
+    print("------------------------------------------------------------------")
+    print(taskJsonList[2])    
+
+        
+            
+
+    
+
+            
+
+
+    #elementList = parentElement.find_elements_by_tag_name("td")
+    #taskModel = '{ "description":" ", "professor":"", "className":"","type":"", "status":"","deadline":""}'
+    #task = []
+    #for x in range(len(elementList)): 
+    #    print(elementList[x].text)
+    #    #até aqui estou pegando os dados de 1 unica task tenho que organizar ela agora e replicar para as demais. 
 
 
 #access the web portal
@@ -72,6 +106,7 @@ loadLoginData()
 insertLoginData()
 accessTasks()
 loadAllTasks()
+#separateTasks()
 #donwloadDocumentsOfTasks()
 #separateTasks()
 #
